@@ -1,0 +1,17 @@
+{
+    "name": "joart/phoneformatter",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Joart\\PhoneFormatter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "joart",
+            "email": "jo.art.da@gmail.com"
+        }
+    ],
+    "require": {}
+}
