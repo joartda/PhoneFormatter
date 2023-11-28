@@ -13,6 +13,7 @@
             "email": "jo.art.da@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.6"
     }
