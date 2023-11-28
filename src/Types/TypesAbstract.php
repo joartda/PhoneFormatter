@@ -19,7 +19,7 @@ class TypesAbstract
       return $phoneNumberSpecs;
   }
 
-  protected function format(string $phoneNumber, array $offsets):string
+  protected function format(string $phoneNumber, array $offsets): string
   {
       $phoneNumberArr = str_split($phoneNumber);
       $last = implode('', array_splice($phoneNumberArr, $offsets[0][0], $offsets[0][1]));

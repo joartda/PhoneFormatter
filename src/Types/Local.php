@@ -24,7 +24,7 @@ class Local extends TypesAbstract
     '064' => 10
   );
 
-  public function change(string $phoneNumber):mixed
+  public function change(string $phoneNumber): mixed
   {
       $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers);
       if($this->isValid($phoneNumber, $phoneNumberSpecs)) {
