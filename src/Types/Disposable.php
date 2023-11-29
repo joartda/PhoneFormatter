@@ -7,6 +7,7 @@ class Disposable extends TypesAbstract
   protected array $preNumbers = array(
     '050' => 12
   );
+  
   public function change(string $phoneNumber):mixed
   {
       $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers);
