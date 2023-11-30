@@ -15,8 +15,8 @@ composer require joart/phoneformatter
 사용법
 ```
 $PhoneFormatter = new Joart\PhoneFormatter\PhoneFormatter();
-var_dump($PhoneFormatter->change('15345678')) . PHP_EOL;
-var_dump($PhoneFormatter->change('1012345678')) . PHP_EOL;
+var_dump($PhoneFormatter->change('15345678'));
+var_dump($PhoneFormatter->change('1012345678'));
 
 // 결과
 string(9) "1534-5678"
