@@ -2,7 +2,7 @@
 
 namespace Joart\PhoneFormatter\Types;
 
-class Local extends TypesAbstract
+class Local extends TypesAbstract implements TypesInterface
 {
   protected array $preNumbers = array(
     '02'  => 9,

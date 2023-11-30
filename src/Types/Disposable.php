@@ -2,13 +2,13 @@
 
 namespace Joart\PhoneFormatter\Types;
 
-class Disposable extends TypesAbstract
+class Disposable extends TypesAbstract implements TypesInterface
 {
   protected array $preNumbers = array(
     '050' => 12
   );
   
-  public function change(string $phoneNumber):mixed
+  public function change(string $phoneNumber): mixed
   {
       $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers);
       if($this->isValid($phoneNumber, $phoneNumberSpecs)) {

@@ -2,7 +2,7 @@
 
 namespace Joart\PhoneFormatter\Types;
 
-class Phone extends TypesAbstract
+class Phone extends TypesAbstract implements TypesInterface
 {
   protected array $preNumbers = array(
     '010' => 11,
@@ -16,7 +16,7 @@ class Phone extends TypesAbstract
     '019' => 11
   );
 
-  public function change(string $phoneNumber):mixed
+  public function change(string $phoneNumber): mixed
   {
       $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers);
       if($this->isValid($phoneNumber, $phoneNumberSpecs)) {

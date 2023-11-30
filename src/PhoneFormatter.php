@@ -2,23 +2,35 @@
 
 namespace Joart\PhoneFormatter;
 
-use Joart\PhoneFormatter\Types\Biz;
-use Joart\PhoneFormatter\Types\Disposable;
-use Joart\PhoneFormatter\Types\Local;
-use Joart\PhoneFormatter\Types\Phone;
+use Joart\PhoneFormatter\Types\{
+    TypesInterface,
+    Disposable,
+    Local,
+    Phone,
+    Biz,
+};
 
 class PhoneFormatter
 {
+    public function __construct(
+        private TypesInterface $Local = new Local,
+        private TypesInterface $Phone = new Phone,
+        private TypesInterface $Biz = new Biz,
+        private TypesInterface $Disposable = new Disposable,
+    )
+    {
+    }
+
     public function change($phoneNumber): mixed
     {
         $phoneNumberPure = preg_replace('/\D/', '', $phoneNumber);
-        if($newNumber = (new Local)->change($phoneNumberPure)) {
+        if($newNumber = $this->Local->change($phoneNumberPure)) {
             return $newNumber;
-        } elseif($newNumber = (new Phone)->change($phoneNumberPure)) {
+        } elseif($newNumber = $this->Phone->change($phoneNumberPure)) {
             return $newNumber;
-        } elseif($newNumber = (new Biz)->change($phoneNumberPure)) {
+        } elseif($newNumber = $this->Biz->change($phoneNumberPure)) {
             return $newNumber;
-        } elseif($newNumber = (new Disposable)->change($phoneNumberPure)) {
+        } elseif($newNumber = $this->Disposable->change($phoneNumberPure)) {
             return $newNumber;
         }
         return $phoneNumber;
