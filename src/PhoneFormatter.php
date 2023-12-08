@@ -8,6 +8,7 @@ use Joart\PhoneFormatter\Types\{
     Local,
     Phone,
     Biz,
+    Internet,
 };
 
 class PhoneFormatter
@@ -17,6 +18,7 @@ class PhoneFormatter
         private TypesInterface $Phone = new Phone,
         private TypesInterface $Biz = new Biz,
         private TypesInterface $Disposable = new Disposable,
+        private TypesInterface $Internet = new Internet,
     )
     {
     }
@@ -31,6 +33,8 @@ class PhoneFormatter
         } elseif($newNumber = $this->Biz->change($phoneNumberPure)) {
             return $newNumber;
         } elseif($newNumber = $this->Disposable->change($phoneNumberPure)) {
+            return $newNumber;
+        } elseif($newNumber = $this->Internet->change($phoneNumberPure)) {
             return $newNumber;
         }
         return $phoneNumber;
