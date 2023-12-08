@@ -25,6 +25,8 @@ class PhoneFormatter
             return $val;
         } elseif($val = $this->isDisposable($phoneNumberPure)) {
             return $val;
+        } elseif($val = $this->isInternet($phoneNumberPure)) {
+            return $val;
         }
         return $phoneNumber;
     }
@@ -76,6 +78,22 @@ class PhoneFormatter
     public function isDisposable($phoneNumber)
     {
         $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers['disposable']);
+        if($this->isValid($phoneNumber, $phoneNumberSpecs)) {
+            if($phoneNumber[0] !== '0') {
+                $phoneNumber = '0' . $phoneNumber;
+            }
+            $offsets = array(
+                array(-4, 4),
+                array(-4, 4),
+            );
+            return $this->format($phoneNumber, $offsets);
+        }
+        return false;
+    }
+
+    public function isInternet($phoneNumber)
+    {
+        $phoneNumberSpecs = $this->addNoneZeroList($this->preNumbers['internet']);
         if($this->isValid($phoneNumber, $phoneNumberSpecs)) {
             if($phoneNumber[0] !== '0') {
                 $phoneNumber = '0' . $phoneNumber;
