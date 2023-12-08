@@ -11,6 +11,7 @@ class PhoneFormatter
         'phone' => array('010' => 11, '011' => 11, '012' => 11, '013' => 11, '015' => 11, '016' => 11, '017' => 11, '018' => 11, '019' => 11),
         'biz' => array('13' => 8, '15' => 8, '16' => 8, '18' => 8),
         'disposable' => array('050' => 12),
+        'internet' => array('070' => 11),
     );
 
     public function change($phoneNumber)
