@@ -76,7 +76,7 @@ class PhoneFormatter
                 $phoneNumber = '0' . $phoneNumber;
             }
             $phoneLen = strlen($phoneNumber);
-            if (!str_starts_with($phoneNumber, '02')) {
+            if (!$this->startsWith($phoneNumber, '02')) {
                 $phoneLen -= 1;
             }
             if ($phoneLen === 9) {
