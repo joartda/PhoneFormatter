@@ -31,10 +31,21 @@ class Local extends TypesAbstract implements TypesInterface
       if ($phoneNumber[0] !== '0') {
         $phoneNumber = '0' . $phoneNumber;
       }
-      $offsets = array(
-        array(-4, 4),
-        array(-3, 3),
-      );
+      $phoneLen = strlen($phoneNumber);
+      if (!str_starts_with($phoneNumber, '02')) {
+        $phoneLen -= 1;
+      }
+      if ($phoneLen === 9) {
+        $offsets = array(
+          array(-4, 4),
+          array(-3, 3),
+        );
+      } else if ($phoneLen === 10) {
+        $offsets = array(
+          array(-4, 4),
+          array(-4, 4),
+        );
+      }
       return $this->format($phoneNumber, $offsets);
     }
     return false;
