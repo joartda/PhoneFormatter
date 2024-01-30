@@ -24,6 +24,9 @@ class PhoneFormatter
 
     public function change($phoneNumber): mixed
     {
+        if ($phoneNumberPure = $this->isMultiple($phoneNumber)) {
+            return $phoneNumberPure;
+        }
         $phoneNumberPure = preg_replace('/\D/', '', $phoneNumber);
         if ($newNumber = $this->Local->change($phoneNumberPure)) {
             return $newNumber;
@@ -37,5 +40,13 @@ class PhoneFormatter
             return $newNumber;
         }
         return $phoneNumber;
+    }
+
+    private function isMultiple(string $phoneNumber): string|bool
+    {
+        if (str_contains($phoneNumber, '~') || str_contains($phoneNumber, '/')) {
+            return str_replace(' ', '', $phoneNumber);
+        }
+        return false;
     }
 }
