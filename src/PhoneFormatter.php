@@ -53,6 +53,9 @@ class PhoneFormatter
 
     public function change($phoneNumber)
     {
+        if ($phoneNumberPure = $this->isMultiple($phoneNumber)) {
+            return $phoneNumberPure;
+        }
         $phoneNumberPure = preg_replace('/\D/', '', $phoneNumber);
         if ($val = $this->isLocal($phoneNumberPure)) {
             return $val;
@@ -200,5 +203,13 @@ class PhoneFormatter
     public function startsWith($haystack, $needle)
     {
         return substr($haystack, 0, strlen($needle)) === $needle;
+    }
+
+    private function isMultiple($phoneNumber)
+    {
+        if (strpos($phoneNumber, '~') !== false || strpos($phoneNumber, '/') !== false) {
+            return str_replace(' ', '', $phoneNumber);
+        }
+        return false;
     }
 }
