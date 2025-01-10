@@ -19,33 +19,40 @@ class PhoneFormatter
         private TypesInterface $Biz = new Biz,
         private TypesInterface $Disposable = new Disposable,
         private TypesInterface $Internet = new Internet,
-    ) {
-    }
+    ) {}
 
     public function change($phoneNumber): mixed
     {
-        if ($phoneNumberPure = $this->isMultiple($phoneNumber)) {
-            return $phoneNumberPure;
-        }
+        $tail = $this->isMultiple($phoneNumber);
         $phoneNumberPure = preg_replace('/\D/', '', $phoneNumber);
         if ($newNumber = $this->Local->change($phoneNumberPure)) {
-            return $newNumber;
         } elseif ($newNumber = $this->Phone->change($phoneNumberPure)) {
-            return $newNumber;
         } elseif ($newNumber = $this->Biz->change($phoneNumberPure)) {
-            return $newNumber;
         } elseif ($newNumber = $this->Disposable->change($phoneNumberPure)) {
-            return $newNumber;
         } elseif ($newNumber = $this->Internet->change($phoneNumberPure)) {
-            return $newNumber;
         }
-        return $phoneNumber;
+        if (empty($newNumber)) {
+            return $phoneNumber;
+        }
+        if ($tail !== false) {
+            return $newNumber . $tail;
+        }
+        return $newNumber;
     }
 
     private function isMultiple(string $phoneNumber): string|bool
     {
-        if (str_contains($phoneNumber, '~') || str_contains($phoneNumber, '/')) {
-            return str_replace(' ', '', $phoneNumber);
+        $div = null;
+        if (str_contains($phoneNumber, '~')) {
+            $div = '~';
+        } else if (str_contains($phoneNumber, '/')) {
+            $div = '/';
+        }
+        if ($div !== null) {
+            $tmp = explode($div, $phoneNumber);
+            if (isset($tmp[1])) {
+                return $div . $tmp[1];
+            };
         }
         return false;
     }
