@@ -47,6 +47,10 @@ class PhoneFormatter
             $div = '~';
         } else if (str_contains($phoneNumber, '/')) {
             $div = '/';
+        } else if (str_contains($phoneNumber, '#')) {
+            $div = '#';
+        } else if (str_contains($phoneNumber, ',')) {
+            $div = ',';
         }
         if ($div !== null) {
             $tmp = explode($div, $phoneNumber);
