@@ -21,6 +21,7 @@ var_dump($PhoneFormatter->change('438720430'));
 var_dump($PhoneFormatter->change('02-715-7244 / ~5'));
 var_dump($PhoneFormatter->change('02-715-7244 /5'));
 var_dump($PhoneFormatter->change('02-715-7244 ~ 5'));
+var_dump($PhoneFormatter->change('027157244~5'));
 
 // 휴대폰 번호 예제
 var_dump($PhoneFormatter->change('01012345678')); // 010-1234-5678
