@@ -51,15 +51,15 @@ class PhoneFormatter
         ),
     );
 
-    public function change($phoneNumber): mixed
+    public function change($phoneNumber)
     {
         $tail = $this->isMultiple($phoneNumber);
         $phoneNumberPure = preg_replace('/\D/', '', $phoneNumber);
-        if ($newNumber = $this->Local->change($phoneNumberPure)) {
-        } elseif ($newNumber = $this->Phone->change($phoneNumberPure)) {
-        } elseif ($newNumber = $this->Biz->change($phoneNumberPure)) {
-        } elseif ($newNumber = $this->Disposable->change($phoneNumberPure)) {
-        } elseif ($newNumber = $this->Internet->change($phoneNumberPure)) {
+        if ($newNumber = $this->isLocal($phoneNumberPure)) {
+        } elseif ($newNumber = $this->isPhone($phoneNumberPure)) {
+        } elseif ($newNumber = $this->isBiz($phoneNumberPure)) {
+        } elseif ($newNumber = $this->isDisposable($phoneNumberPure)) {
+        } elseif ($newNumber = $this->isInternet($phoneNumberPure)) {
         }
         if (empty($newNumber)) {
             return $phoneNumber;
@@ -204,13 +204,17 @@ class PhoneFormatter
         return substr($haystack, 0, strlen($needle)) === $needle;
     }
 
-    private function isMultiple(string $phoneNumber): string|bool
+    private function isMultiple(string $phoneNumber)
     {
         $div = null;
-        if (str_contains($phoneNumber, '~')) {
+        if (strpos($phoneNumber, '~') !== false) {
             $div = '~';
-        } else if (str_contains($phoneNumber, '/')) {
+        } else if (strpos($phoneNumber, '/') !== false) {
             $div = '/';
+        } else if (strpos($phoneNumber, '#') !== false) {
+            $div = '#';
+        } else if (strpos($phoneNumber, ',') !== false) {
+            $div = ',';
         }
         if ($div !== null) {
             $tmp = explode($div, $phoneNumber);
@@ -221,4 +225,3 @@ class PhoneFormatter
         return false;
     }
 }
-
